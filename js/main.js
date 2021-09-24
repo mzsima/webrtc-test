@@ -42,7 +42,7 @@ function connect() {
     })
 }
 
-function receveSdp() {
+function receiveSdp() {
     let sdp = JSON.parse(textToReceiveSdp.value);
 
     if (sdp.type === 'offer') {
