@@ -17,7 +17,12 @@ navigator.mediaDevices.getUserMedia({
 function gotStream(stream) {
     localStream = stream;
     localVideo.srcObject = stream;
-    pc = new RTCPeerConnection(null);
+    let pc_config = {"iceServers":[
+        {"urls": "stun:stun.l.google.com:19302"},
+        {"urls": "stun:stun1.l.google.com:19302"},
+        {"urls": "stun:stun2.l.google.com:19302"}
+      ]};
+    pc = new RTCPeerConnection(pc_config);
     pc.addStream(localStream);
     pc.onaddstream = handleRemoteStreamAdded;
     pc.onicecandidate = (event) => {
@@ -37,7 +42,7 @@ function connect() {
     })
 }
 
-function recieveSdp() {
+function receveSdp() {
     let sdp = JSON.parse(textToReceiveSdp.value);
 
     if (sdp.type === 'offer') {
